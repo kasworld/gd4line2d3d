@@ -7,8 +7,8 @@ var vp_size :Vector2
 func _ready() -> void:
 	vp_size = get_viewport().size
 	reset_camera()
-	var l2d_0 = line2d_scene.instantiate().init_with_random(100,4,1.5,vp_size)
-	for i in 10:
+	var l2d_0 = line2d_scene.instantiate().init_with_random(50,4,1.5,vp_size,2.0/60.0)
+	for i in 20:
 		var l2d = line2d_scene.instantiate().init_with_copy(l2d_0)
 		for j in i:
 			l2d.move_1_step()
