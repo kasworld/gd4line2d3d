@@ -7,11 +7,18 @@ var vp_size :Vector2
 func _ready() -> void:
 	vp_size = get_viewport().size
 	reset_camera()
-	make_line2d_plane(vp_size)
+	var l2d_0 = line2d_scene.instantiate().init_with_random(100,4,1.5,vp_size)
+	for i in 10:
+		var l2d = line2d_scene.instantiate().init_with_copy(l2d_0)
+		for j in i:
+			l2d.move_1_step()
+		l2d.start()
+		var mi = make_line2d_plane(l2d, vp_size)
+		mi.position.z = i *10
 
-func make_line2d_plane(sz2 :Vector2) -> MeshInstance3D:
-	var l2d = line2d_scene.instantiate()
-	l2d.init(300,4,1.5,sz2)
+func make_line2d_plane(l2d :MoveLine2D, sz2 :Vector2) -> MeshInstance3D:
+	#var l2d = line2d_scene.instantiate()
+	#l2d.init(300,4,1.5,sz2)
 	var sv = SubViewport.new()
 	sv.size = sz2
 	sv.transparent_bg = true
