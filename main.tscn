@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dixkkbi0mg4d2"]
+
+[ext_resource type="Script" uid="uid://bc0pkri7g0up6" path="res://main.gd" id="1_ig7tw"]
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_ig7tw")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+keep_aspect = 0
+fov = 90.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
