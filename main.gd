@@ -4,21 +4,22 @@ var line2d_scene = preload("res://move_line2d/move_line_2d.tscn")
 
 var camera_move := false
 var vp_size :Vector2
+var l2d_list :Array = []
+var paused :bool
 func _ready() -> void:
 	vp_size = get_viewport().size
 	reset_camera()
-	var l2d_0 = line2d_scene.instantiate().init_with_random(50,4,1.5,vp_size,2.0/60.0)
-	for i in 20:
+	var l2d_0 = line2d_scene.instantiate().init_with_random(50,4,1,vp_size,2.0/60.0)
+	for i in 100:
 		var l2d = line2d_scene.instantiate().init_with_copy(l2d_0)
 		for j in i:
 			l2d.move_1_step()
 		l2d.start()
 		var mi = make_line2d_plane(l2d, vp_size)
-		mi.position.z = i *10
+		mi.position.z = i *2
+		l2d_list.append(l2d)
 
 func make_line2d_plane(l2d :MoveLine2D, sz2 :Vector2) -> MeshInstance3D:
-	#var l2d = line2d_scene.instantiate()
-	#l2d.init(300,4,1.5,sz2)
 	var sv = SubViewport.new()
 	sv.size = sz2
 	sv.transparent_bg = true
@@ -61,6 +62,7 @@ func move_camera(_delta: float) -> void:
 var key2fn = {
 	KEY_ESCAPE:_on_button_esc_pressed,
 	KEY_C: _on_button_camera_pressed,
+	KEY_P: _on_button_pause_pressed,
 }
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -73,6 +75,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_button_esc_pressed() -> void:
 	get_tree().quit()
+
+func _on_button_pause_pressed() -> void:
+	paused = not paused
+	for l2d in l2d_list:
+		l2d.auto_move = not paused
 
 func _on_button_camera_pressed() -> void:
 	camera_move = not camera_move
