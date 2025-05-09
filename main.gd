@@ -16,7 +16,7 @@ func _ready() -> void:
 			l2d.move_1_step()
 		l2d.start()
 		var mi = make_line2d_plane(l2d, vp_size)
-		mi.position.z = i *2
+		mi.position.z = i *3
 		l2d_list.append(l2d)
 
 func make_line2d_plane(l2d :MoveLine2D, sz2 :Vector2) -> MeshInstance3D:
